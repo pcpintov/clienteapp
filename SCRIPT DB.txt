@@ -1,0 +1,105 @@
+CREATE TABLE cliente
+(
+    idcliente bigint NOT NULL primary key,
+    nombrecliente character varying(200),
+    telefonocliente character varying(100),
+    nitcliente character varying(10)
+)
+
+
+
+CREATE TABLE detallefactura
+(
+    iddetallefactura bigserial NOT NULL primary key,
+    idfactura bigint,
+    idproducto bigint,
+    preciounitario money,
+    cantidad bigint,
+    preciototal money
+)
+
+
+
+
+CREATE TABLE factura
+(
+    idfactura bigserial NOT NULL primary key,
+    fecha date,
+    idcliente bigint,
+    idusuario bigint
+)
+
+
+CREATE TABLE producto
+(
+    idproducto bigserial NOT NULL primary key,
+    nombreproducto character varying(200),
+    descripcion character varying(100),
+    existencias bigint
+)
+
+
+
+
+CREATE TABLE rol
+(
+    idrol bigserial NOT NULL primary key,
+    nombrerol character varying(100)
+)
+
+
+
+
+CREATE TABLE usuario
+(
+    idusuario bigserial NOT NULL DEFAULT primary key,
+    nombreusuario character varying(200),
+    password character varying(100),
+)
+
+
+
+
+
+
+
+
+alter table usuario add constraint fk_usuariorol 
+	foreign key(idrol)
+	references rol(idrol)
+
+alter table factura add constraint fk_facturausuario
+	foreign key (idusuario)
+	references usuario(idusuario);
+
+alter table factura add constraint fk_facturacliente
+	foreign key (idcliente)
+	references cliente(idcliente);
+
+alter table detallefactura add constraint fk_detallefacturapro
+	foreign key (idproducto)
+	references producto(idproducto);
+
+alter table detallefactura add constraint fk_detallefacturafac
+	foreign key (idfactura)
+	references factura(idfactura);
+
+
+
+
+
+
+
+
+insert into cliente (nombrecliente, telefonocliente, nitcliente) values('juan perez', 77446655, '6353633')
+insert into cliente (nombrecliente, telefonocliente, nitcliente) values('dani carvajal', 22558877, '47852k');
+insert into cliente (nombrecliente, telefonocliente, nitcliente) values('nacho fernandez', 3366987, '7896541');
+insert into cliente (nombrecliente, telefonocliente, nitcliente) values('eder militao', 33654478, '6353589');
+insert into cliente (nombrecliente, telefonocliente, nitcliente) values('luka modric', 12547896, '2587456');
+insert into cliente (nombrecliente, telefonocliente, nitcliente) values('tony kros', 77665544, '25896a');
+insert into cliente (nombrecliente, telefonocliente, nitcliente) values('marco asensio', 22558877, '78965');
+insert into cliente (nombrecliente, telefonocliente, nitcliente) values('fede valverde', 32589632, '1235896');
+insert into cliente (nombrecliente, telefonocliente, nitcliente) values('rodrigo goes', 14785236, '12365478');
+insert into cliente (nombrecliente, telefonocliente, nitcliente) values('dani ceballos', 77558877, '8874563k');
+insert into cliente (nombrecliente, telefonocliente, nitcliente) values('karim benzema', 77422589, '32558h');
+
